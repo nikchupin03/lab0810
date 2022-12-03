@@ -27,7 +27,7 @@ bool Rectangle::set_w(int w) {
 int _max(int a, int b) { return (a > b ? a : b); }
 int _min(int a, int b) { return (a > b ? b : a); }
 
-Rectangle Rectangle::combination_static(Rectangle* rect1, Rectangle* rect2) {
+Rectangle Rectangle::combination(Rectangle* rect1, Rectangle* rect2) {
   int max_x = _max(
       _max(rect1->get_x(), rect2->get_x()),
       _max(rect1->get_x() + rect1->get_w(), rect2->get_x() + rect2->get_w()));
@@ -42,11 +42,8 @@ Rectangle Rectangle::combination_static(Rectangle* rect1, Rectangle* rect2) {
       _min(rect1->get_y() + rect1->get_h(), rect2->get_y() + rect2->get_h()));
   return Rectangle(max_x - min_x, max_y - min_y, min_x, min_y);
 }
-Rectangle Rectangle::combination(Rectangle* rect) {
-  return combination_static(this, rect);
-}
 
-Rectangle Rectangle::intersection_static(Rectangle* rect1, Rectangle* rect2) {
+Rectangle Rectangle::intersection(Rectangle* rect1, Rectangle* rect2) {
   int max_x1 = _max(rect1->get_x(), rect1->get_x() + rect1->get_w());
   int min_x1 = _min(rect1->get_x(), rect1->get_x() + rect1->get_w());
   int max_x2 = _max(rect2->get_x(), rect2->get_x() + rect2->get_w());
@@ -66,9 +63,6 @@ Rectangle Rectangle::intersection_static(Rectangle* rect1, Rectangle* rect2) {
   int y1 = _max(min_y1, min_y2);
   int y2 = _min(max_y1, max_y2);
   return Rectangle(y2 - y1, x2 - x1, x1, y1);
-}
-Rectangle Rectangle::intersection(Rectangle* rect) {
-  return intersection_static(this, rect);
 }
 
 void Rectangle::show() {

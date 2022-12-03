@@ -2,34 +2,35 @@
 
 #include <iostream>
 
+template <typename T>
 class Rectangle {
  private:
-  int x_pos;
-  int y_pos;
+  T x_pos;
+  T y_pos;
   int height;
   int width;
 
  public:
-  int get_x();
-  int get_y();
-  int get_h();
-  int get_w();
+  const T get_x();
+  const T get_y();
+  const T get_h();
+  const T get_w();
 
-  bool set_x(int x);
-  bool set_y(int y);
-  bool set_h(int h);
-  bool set_w(int w);
+  bool set_x(T x);
+  bool set_y(T y);
+  bool set_h(T h);
+  bool set_w(T w);
 
-  static Rectangle combination_static(Rectangle* rect1, Rectangle* rect2);
-  Rectangle combination(Rectangle* rect);
+  friend Rectangle combination(Rectangle* rect1, Rectangle* rect2);
+  friend Rectangle intersection(Rectangle* rect1, Rectangle* rect2);
 
-  static Rectangle intersection_static(Rectangle* rect1, Rectangle* rect2);
-  Rectangle intersection(Rectangle* rect);
-
-  void show();
+  virtual void show();
 
   Rectangle();
-  Rectangle(int h, int w);
-  Rectangle(int h, int w, int x, int y);
+  Rectangle(T h, T w);
+  Rectangle(T h, T w, T x, T y);
   ~Rectangle();
+
+  operator Rectangle() { return Rectangle(); }
+
 };
